@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pet Grooming</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #fce4ec 50%, #e0f7fa 50%);
+      color: #333;
+    }
+
+    header {
+      background-color: #ec407a;
+      color: white;
+      padding: 40px 10px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    nav {
+            display:flex;
+            justify-content:center;
+            background-color:bisque;
+        }
+    nav a {
+            color:black;
+            padding:14px 20px;
+            text-decoration:none;
+            text-align:center;
+        }
+    nav a:hover {
+            background-color:#ff6347;
+        }    
+
+    header h1 {
+      font-size: 48px;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px #c2185b;
+      margin: 0;
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-top: 6px solid #ec407a;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card h2 {
+      color: #d81b60;
+      font-size: 22px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>GROOMING</h1>
+  </header>
+   <nav>
+        <a href="home.html">Home</a>
+        <a href="groom.html">Grooming</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="location.html">Location</a>
+        <a href="about.html">About Us</a>
+    </nav>
+
+  <div class="content">
+    <div class="grid">
+      <!-- Top 3 Cards -->
+      <div class="card">
+        <h2>Bathing</h2>
+        <ul>
+          <li>Use lukewarm water and pet-safe shampoo</li>
+          <li>Protect ears to avoid infections</li>
+          <li>Dry thoroughly with towel or pet dryer</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Hair Grooming</h2>
+        <ul>
+          <li>Brush regularly to prevent mats and tangles</li>
+          <li>Trim excess hair around eyes and paws</li>
+          <li>Use proper tools for coat type (slicker, comb, etc.)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Dental Hygiene</h2>
+        <ul>
+          <li>Brush teeth with pet-safe toothpaste weekly</li>
+          <li>Dental treats help reduce tartar buildup</li>
+          <li>Check gums for redness or swelling</li>
+        </ul>
+      </div>
+
+      <!-- Bottom 3 Cards -->
+      <div class="card">
+        <h2>Skin & Coat Health</h2>
+        <ul>
+          <li>Check for parasites like fleas or ticks</li>
+          <li>Moisturize dry or flaky skin with vet-approved products</li>
+          <li>Shiny coat indicates good nutrition and care</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Eye Cleaning</h2>
+        <ul>
+          <li>Wipe tear stains with soft, damp cloth</li>
+          <li>Use sterile wipes if needed</li>
+          <li>Look out for redness or unusual discharge</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Nail Care</h2>
+        <ul>
+          <li>Trim nails regularly to prevent overgrowth</li>
+          <li>Avoid cutting into the quick (sensitive area)</li>
+          <li>Smooth sharp edges with a file if needed</li>
+        </ul>
+      </div>
+      <div id="dynamic-services">
+  <h2>Other Available Pet Services</h2>
+  <ul id="serviceList"></ul>
+        </div>
+
+    </div>
+  </div>
+<script>
+  function loadServices() {
+    const services = JSON.parse(localStorage.getItem('groomingServices')) || [];
+    const grid = document.getElementById('serviceGrid');
+
+    if (services.length === 0) {
+      document.getElementById('dynamic-services').style.display = 'none';
+      return;
+    }
+
+    grid.innerHTML = '';
+
+    services.forEach(service => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const title = document.createElement('h2');
+      title.textContent = service.title;
+      card.appendChild(title);
+
+      const ul = document.createElement('ul');
+      service.points.forEach(point => {
+        const li = document.createElement('li');
+        li.textContent = point;
+        ul.appendChild(li);
+      });
+
+      card.appendChild(ul);
+      grid.appendChild(card);
+    });
+  }
+
+  window.onload = loadServices;
+</script>
+
+
+
+</body>
+</html>

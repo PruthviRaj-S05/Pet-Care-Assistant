@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Pet Care Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #428ec0;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .sidebar {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f1f1f1;
+      text-align: left;
+    }
+
+    .add-content {
+      margin-top: 20px;
+    }
+
+    .add-content textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      resize: vertical;
+    }
+
+    .add-content button {
+      margin-top: 10px;
+      background-color: #428ec0;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .added-content {
+      margin-top: 20px;
+      background-color: #e8f5e9;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    Admin Dashboard - Pet Care Assistant
+  </header>
+  <div class="container">
+    <div class="sidebar">
+      <h2>Navigation</h2>
+      <ul>
+        <li>Dashboard</li>
+        <li>Users</li>
+      <ul>
+    </div>
+    <div class="content">
+      <h2>Logged-In Users</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>001</td>
+            <td>pruthvi </td>
+            <td>rajp51551@gmail.com</td>
+          </tr>
+          <!-- Additional users can be dynamically added here -->
+        </tbody>
+      </table>
+    
+      <h2>Add a Pet Service</h2>
+<select id="serviceCategory">
+  <option value="nutrition">Nutrition</option>
+  <option value="grooming">Grooming</option>
+</select>
+<br/><br/>
+<input type="text" id="serviceTitle" placeholder="Enter service title" />
+<br/><br/>
+<textarea id="servicePoints" placeholder="Enter service points (comma-separated)" rows="4" cols="40"></textarea>
+<br/><br/>
+<button onclick="addService()">Add Service</button>
+
+
+      <div class="added-content" id="addedContent"></div>
+    </div>
+  </div>
+
+  <script>
+  function addService() {
+    const category = document.getElementById('serviceCategory').value;
+    const title = document.getElementById('serviceTitle').value.trim();
+    const pointsText = document.getElementById('servicePoints').value.trim();
+
+    if (!title || !pointsText) {
+      alert("Please enter both title and points.");
+      return;
+    }
+
+    const points = pointsText.split(',').map(p => p.trim()).filter(p => p.length > 0);
+    const newService = { title, points };
+
+    const key = category === 'nutrition' ? 'nutritionServices' : 'groomingServices';
+    const existingServices = JSON.parse(localStorage.getItem(key)) || [];
+
+    existingServices.push(newService);
+    localStorage.setItem(key, JSON.stringify(existingServices));
+
+    alert(`Service added to ${category.charAt(0).toUpperCase() + category.slice(1)}!`);
+    
+    document.getElementById('serviceTitle').value = '';
+    document.getElementById('servicePoints').value = '';
+  }
+</script>
+
+
+
+</body>
+</html>
